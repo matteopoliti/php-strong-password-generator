@@ -1,6 +1,11 @@
 <?php
+session_start();
 include_once __DIR__ . '/partials/functions.php';
 
+if ($passwordLength != "") {
+    $_SESSION['password'] = generaPassword($passwordLength);
+    header("Location: ./partials/results.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,15 +39,6 @@ include_once __DIR__ . '/partials/functions.php';
                     Nessun parametro valido inserito.
                 </div>
             <?php endif; ?>
-        </div>
-
-        <div class="bg-light p-4 rounded w-75 m-auto my-4 d-flex justify-content-between ">
-            <h3 class="text-dark">La tua password è:</h3>
-            <span class="text-dark fs-5">
-                <?php
-                echo generaPassword($passwordLength)
-                ?>
-            </span>
         </div>
     </div>
 
