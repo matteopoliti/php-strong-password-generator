@@ -1,3 +1,20 @@
+<?php
+$passwordLength = $_GET['length'];
+
+if (isset($passwordLength) && $passwordLength != "") {
+    function generaPassword($length)
+    {
+        $simboli = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?~@#-_+<>[]{}";
+        $simboliShuffle = str_shuffle($simboli);
+        $password = substr($simboliShuffle, 0, $length);
+        return $password;
+    };
+} else {
+    $isEmpty = true;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 
@@ -20,10 +37,24 @@
             <form action="index.php">
                 <div class="d-flex gap-3 align-items-center justify-content-between mb-4 ">
                     <label for="length" class="form-label text-dark fs-5">Lunghezza password:</label>
-                    <input type="number" class="form-control w-25 me-5 " id="length" data-bs-theme="light">
+                    <input type="number" min="0" max="76" class="form-control w-25 me-5 " id="length" name="length" data-bs-theme="light">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            <?php if ($isEmpty) : ?>
+                <div class="alert alert-danger mt-3" role="alert">
+                    Nessun parametro valido inserito.
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <div class="bg-light p-4 rounded w-75 m-auto my-4 d-flex justify-content-between ">
+            <h3 class="text-dark">La tua password è:</h3>
+            <span class="text-dark fs-5">
+                <?php
+                echo generaPassword($passwordLength)
+                ?>
+            </span>
         </div>
     </div>
 
